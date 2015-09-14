@@ -4,7 +4,7 @@
 
 ##Documentation
 
-Add HTML-code (put your date for countdown in `data-countdown-date`)
+Add HTML-code (put your date for countdown in `data-countdown-date` attribute)
 
 ```
 <div class="countdown" data-countdown-date="2016-8-4-10-0-0"></div>
