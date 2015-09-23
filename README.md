@@ -56,4 +56,3 @@ $(document).ready(function() {
 ```
 
 Enjoy it!
-test edit
