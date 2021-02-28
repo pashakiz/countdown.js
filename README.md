@@ -7,7 +7,7 @@
 Add HTML-code (put your date for countdown in `data-countdown-date` attribute)
 
 ```
-<div class="countdown" data-countdown-date="2016-8-4-10-0-0"></div>
+<div class="countdown" data-countdown-date="2021-8-4-10-0-0"></div>
 ```
 
 Add countdown.css
@@ -41,18 +41,15 @@ You can customize this css-code. The full HTML-structure will be:
 </div>
 ```
 
-Add jQuery and countdown.js:
+Add countdown.js:
 
 ```
-<script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/countdown.js"></script>
 ```
 
 When DOM is ready (or load) - init countdown!
 ```
-$(document).ready(function() {
-	InitCountDown(); 
-});
+document.addEventListener('DOMContentLoaded', InitCountDown);
 ```
 
 Enjoy it!

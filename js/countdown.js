@@ -6,12 +6,12 @@
 function InitCountDown() {
 
         // Записываем в div.countdown всю HTML-разметку
-        $('.countdown').html('<div class="count-block count-days"><div class="value"></div><div class="title"></div></div><div class="count-separator"></div><div class="count-block count-hours"><div class="value"></div><div class="title"></div></div><div class="count-separator"></div><div class="count-block count-mins"><div class="value"></div><div class="title"></div></div><div class="count-separator"></div><div class="count-block count-seconds"><div class="value"></div><div class="title"></div></div>');
+        document.querySelector('.countdown').innerHTML = '<div class="count-block count-days"><div class="value"></div><div class="title"></div></div><div class="count-separator"></div><div class="count-block count-hours"><div class="value"></div><div class="title"></div></div><div class="count-separator"></div><div class="count-block count-mins"><div class="value"></div><div class="title"></div></div><div class="count-separator"></div><div class="count-block count-seconds"><div class="value"></div><div class="title"></div></div>';
 
-        // Берем дату в строке: "yyyy-m-d-h-m-s"
-        var date_str = $('.countdown').attr("data-countdown-date");
-        // Разбиваем строку на массив: "yyyy", "m", "d", "h", "m", "s"
-        var date_future = date_str.split('-');
+        // Берем дату в строке: 'yyyy-m-d-h-m-s', пример: '2021-8-4-10-0-0'
+        let date_str = document.querySelector('.countdown').getAttribute('data-countdown-date');
+        // Разбиваем строку на массив: 'yyyy', 'm', 'd', 'h', 'm', 's'
+        let date_future = date_str.split('-');
 
         // Месяц должен начинаться с 0 в js, поэтому декрементируем значение второго элемента массива
         --date_future[1];
@@ -31,17 +31,17 @@ function CountDown(dateFuture) {
 
         // что если dateFuture меньше, чем dateNow? Выведем тогда просто одни нули
         if(amount <= 0) {
-                $(".count-days .value").html(0);
-                $(".count-days .title").html("дней");
+                document.querySelector('.count-days .value').innerHTML = '0';
+                document.querySelector('.count-days .title').innerHTML = 'дней';
 
-                $(".count-hours .value").html(0);
-                $(".count-hours .title").html("часов");
+                document.querySelector('.count-hours .value').innerHTML = '0';
+                document.querySelector('.count-hours .title').innerHTML = 'часов';
 
-                $(".count-mins .value").html(0);
-                $(".count-mins .title").html("минут");
+                document.querySelector('.count-mins .value').innerHTML = '0';
+                document.querySelector('.count-mins .title').innerHTML = 'минут';
 
-                $(".count-seconds .value").html(0);
-                $(".count-seconds .title").html("секунд");
+                document.querySelector('.count-seconds .value').innerHTML = '0';
+                document.querySelector('.count-seconds .title').innerHTML = 'секунд';
         }
         else { // Все в порядке - dateFuture больше, чем dateNow, а значит есть, что считать
                 var days=0,hours=0,mins=0,secs=0;
@@ -60,50 +60,50 @@ function CountDown(dateFuture) {
                 secs=Math.floor(amount); //секунды
 
                 //Выводим результат с правилами русского языка (11-14 дней, 1 день, 2-3-4 дня, 5-9-0 дней)
-                $(".count-days .value").html(days);
+                document.querySelector('.count-days .value').innerHTML = days;
                 if (days%100 == 11 || days%100 == 12 || days%100 == 13 || days%100 == 14) {
-                        $(".count-days .title").html("дней");
+                        document.querySelector('.count-days .title').innerHTML = 'дней';
                 } else if (days%10 == 1) {
-                        $(".count-days .title").html("день");
+                        document.querySelector('.count-days .title').innerHTML = 'день';
                 } else if (days%10 == 0 || days%10 >= 5) {
-                        $(".count-days .title").html("дней");
+                        document.querySelector('.count-days .title').innerHTML = 'дней';
                 } else if (days%10 == 2 || days%10 == 3 || days%10 == 4) {
-                        $(".count-days .title").html("дня");
+                        document.querySelector('.count-days .title').innerHTML = 'дня';
                 }
 
-                $(".count-hours .value").html(hours);
+                document.querySelector('.count-hours .value').innerHTML = hours;
                 if (hours >= 11 && hours <= 14) {
-                        $(".count-hours .title").html("часов");
+                        document.querySelector('.count-hours .title').innerHTML = 'часов';
                 } else if (hours%10 == 1) {
-                        $(".count-hours .title").html("час");
+                        document.querySelector('.count-hours .title').innerHTML = 'час';
                 } else if (hours%10 == 0 || hours%10 >= 5) {
-                        $(".count-hours .title").html("часов");
+                        document.querySelector('.count-hours .title').innerHTML = 'часов';
                 } else if (hours%10 == 2 || hours%10 == 3 || hours%10 == 4) {
-                        $(".count-hours .title").html("часа");
+                        document.querySelector('.count-hours .title').innerHTML = 'часа';
                 }
 
-                $(".count-mins .value").html(mins);
+                document.querySelector('.count-mins .value').innerHTML = mins;
                 if (mins >= 11 && mins <= 14) {
-                        $(".count-mins .title").html("минут");
+                        document.querySelector('.count-mins .title').innerHTML = 'минут';
                 } else if (mins%10 == 1) {
-                        $(".count-mins .title").html("минута");
+                        document.querySelector('.count-mins .title').innerHTML = 'минута';
                 } else if (mins%10 == 0 || mins%10 >= 5) {
-                        $(".count-mins .title").html("минут");
+                        document.querySelector('.count-mins .title').innerHTML = 'минут';
                 } else if (mins%10 == 2 || mins%10 == 3 || mins%10 == 4) {
-                        $(".count-mins .title").html("минуты");
+                        document.querySelector('.count-mins .title').innerHTML = 'минуты';
                 }
 
-                $(".count-seconds .value").html(secs);
+                document.querySelector('.count-seconds .value').innerHTML = secs;
                 if (secs >= 11 && secs <= 14) {
-                        $(".count-seconds .title").html("секунд");
+                        document.querySelector('.count-seconds .title').innerHTML = 'секунд';
                 } else if (secs%10 == 1) {
-                        $(".count-seconds .title").html("секунда");
+                        document.querySelector('.count-seconds .title').innerHTML = 'секунда';
                 } else if (secs%10 == 0 || secs%10 >= 5) {
-                        $(".count-seconds .title").html("секунд");
+                        document.querySelector('.count-seconds .title').innerHTML = 'секунд';
                 } else if (secs%10 == 2 || secs%10 == 3 || secs%10 == 4) {
-                        $(".count-seconds .title").html("секунды");
+                        document.querySelector('.count-seconds .title').innerHTML = 'секунды';
                 }
 
-                setTimeout("CountDown(dateFuture)", 1000); //запускаем снова через 1 секунду
+                setTimeout('CountDown(dateFuture)', 1000); //запускаем снова через 1 секунду
         }
 }
