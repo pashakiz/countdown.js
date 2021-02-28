@@ -2,7 +2,7 @@
 
 <a href="http://lubus.ru/d/countdown/" title="demo">demo.</a>
 
-##Documentation
+## Documentation
 
 Add HTML-code (put your date for countdown in `data-countdown-date` attribute)
 
