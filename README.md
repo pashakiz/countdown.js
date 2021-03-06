@@ -1,6 +1,6 @@
 # countdown.js
 
-<a href="http://lubus.ru/d/countdown/" title="demo">demo.</a>
+<a href="https://pashakiz.github.io/countdown.js/" title="demo">demo1</a> <a href="http://lubus.ru/d/countdown/" title="demo">demo2</a> 
 
 ## Documentation
 
