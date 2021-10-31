@@ -41,6 +41,32 @@ You can customize this css-code. The full HTML-structure will be:
 </div>
 ```
 
+```
+<div class="countdown" data-countdown-date="2016-8-4-10-0-0">
+  <div class="clockface">
+    <div class="clockface-item clockface-item_days">
+      <div class="clockface__value"></div>
+      <div class="clockface__title"></div>
+    </div>
+    <div class="clockface__separator"></div>
+    <div class="clockface-item clockface-item_hours">
+      <div class="clockface__value"></div>
+      <div class="clockface__title"></div>
+    </div>
+    <div class="clockface__separator"></div>
+    <div class="clockface-item clockface-item_mins">
+      <div class="clockface__value"></div>
+      <div class="clockface__title"></div>
+    </div>
+    <div class="clockface__separator"></div>
+    <div class="clockface-item clockface-item_seconds">
+      <div class="clockface__value"></div>
+      <div class="clockface__title"></div>
+    </div>
+  </div>
+</div>
+```
+
 Add countdown.js:
 
 ```

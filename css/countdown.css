@@ -1,5 +1,5 @@
 /* -------------------------------------------------------------------------------------------------------------- */
-/* countdown.js 
+/* countdown.js
 https://github.com/pashakiz/countdown.js
 */
 /* -------------------------------------------------------------------------------------------------------------- */
@@ -10,25 +10,26 @@ https://github.com/pashakiz/countdown.js
 }
 .countdown {
 	text-align: center;
-	margin: 20px 0; 
+	margin: 20px 0;
 }
-.count-block,
-.count-separator {
+.clockface {
+	display: inline-block;
+  font-size: 44px;
+	color: #222222;
+}
+.clockface-item {
 	display: inline-block;
 }
-.count-separator {
-	vertical-align: top;
+.clockface__separator {
+	display: inline-block;
+  vertical-align: top;
 }
-.count-separator:after {
+.clockface__separator:after {
 	content: ":";
 	margin: 0 5px;
 }
-.count-block .value,
-.count-separator {
-	font-size: 44px;
-	color: #222222;
-}
-.count-block .title {
+.clockface__value {}
+.clockface__title {
 	font-size: 16px;
 	line-height: 1;
 	color: #777;
