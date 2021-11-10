@@ -3,107 +3,217 @@
 * https://github.com/pashakiz/countdown.js
 */
 
-function InitCountDown() {
-
-        // Записываем в div.countdown всю HTML-разметку
-        document.querySelector('.countdown').innerHTML = '<div class="count-block count-days"><div class="value"></div><div class="title"></div></div><div class="count-separator"></div><div class="count-block count-hours"><div class="value"></div><div class="title"></div></div><div class="count-separator"></div><div class="count-block count-mins"><div class="value"></div><div class="title"></div></div><div class="count-separator"></div><div class="count-block count-seconds"><div class="value"></div><div class="title"></div></div>';
-
-        // Берем дату в строке: 'yyyy-m-d-h-m-s', пример: '2021-8-4-10-0-0'
-        let date_str = document.querySelector('.countdown').getAttribute('data-countdown-date');
-        // Разбиваем строку на массив: 'yyyy', 'm', 'd', 'h', 'm', 's'
-        let date_future = date_str.split('-');
-
-        // Месяц должен начинаться с 0 в js, поэтому декрементируем значение второго элемента массива
-        --date_future[1];
-
-        // Создаем объект dateFuture типа Date с датой до которой счетчик будет тикать
-        dateFuture = new Date(date_future[0],date_future[1],date_future[2],date_future[3],date_future[4],date_future[5]);
-
-        // Вызываем рекурсивную функцию счетчика с аргументом dateFuture
-        CountDown(dateFuture);
+const initCountDown = () => {
+  const elems = document.querySelectorAll('.countdown-js');
+  elems.forEach((elem) => new CountDown(elem));
 }
 
-function CountDown(dateFuture) {
+function CountDown(elem) {
+  this.elem = elem;
 
-        dateNow = new Date(); // берем текущую дату в dateNow
-        amount = dateFuture.getTime() - dateNow.getTime(); // высчитываем разницу между датами в милисекундах
-        delete dateNow;
+  this.showTitles = elem.dataset.showTitles === 'true' ? true : false;
 
-        // что если dateFuture меньше, чем dateNow? Выведем тогда просто одни нули
-        if(amount <= 0) {
-                document.querySelector('.count-days .value').innerHTML = '0';
-                document.querySelector('.count-days .title').innerHTML = 'дней';
+  this.clockface = {
+    dayValue: null,
+    dayTitle: null,
+    hourValue: null,
+    hourTitle: null,
+    minValue: null,
+    minTitle: null,
+    secValue: null,
+    secTitle: null,
+  };
 
-                document.querySelector('.count-hours .value').innerHTML = '0';
-                document.querySelector('.count-hours .title').innerHTML = 'часов';
+  this.time = {
+    difference: null,
+    days: 0,
+    hours: 0,
+    mins: 0,
+    secs: 0,
+  };
 
-                document.querySelector('.count-mins .value').innerHTML = '0';
-                document.querySelector('.count-mins .title').innerHTML = 'минут';
+  this.start = () => {
+    console.log('start timer!');
+    let dateStr = this.elem.dataset.countdownDate;
+    let dateFuture = dateStr.split('-');
+    --dateFuture[1]; //months start from 0 in JS
 
-                document.querySelector('.count-seconds .value').innerHTML = '0';
-                document.querySelector('.count-seconds .title').innerHTML = 'секунд';
-        }
-        else { // Все в порядке - dateFuture больше, чем dateNow, а значит есть, что считать
-                var days=0,hours=0,mins=0,secs=0;
+    //Create a dateFuture object of type Date with the date until which the counter will tick
+    this.dateFuture = new Date(
+      dateFuture[0],
+      dateFuture[1],
+      dateFuture[2],
+      dateFuture[3],
+      dateFuture[4],
+      dateFuture[5]
+    );
+    this.buildClockFace();
 
-                amount = Math.floor(amount/1000); //милисекунды нам не нужны - округлим до секунд
+    //Call a recursive counter function with dateFuture argument
+    this.countDown(this.dateFuture);
+  }
 
-                days=Math.floor(amount/86400); //получаем дни (1 день = 86400 секунд)
-                amount=amount%86400; // сохраняем остаток
+  this.buildClockFace = () => {
+    console.log('this.buildClockFace');
+    let clockface = document.createElement('DIV');
+    clockface.classList.add('clockface');
 
-                hours=Math.floor(amount/3600); //часы
-                amount=amount%3600;
+    //element (donor) for cloning
+    let clockfaceSeparator = document.createElement('DIV');
+    clockfaceSeparator.classList.add('clockface__separator');
 
-                mins=Math.floor(amount/60); //минуты
-                amount=amount%60;
+    //element (donor) for cloning
+    let clockfaceItem = document.createElement('DIV');
+    clockfaceItem.classList.add('clockface-item');
 
-                secs=Math.floor(amount); //секунды
+    let clockfaceValue = document.createElement('DIV');
+    clockfaceValue.classList.add('clockface__value');
+    clockfaceItem.append(clockfaceValue);
 
-                //Выводим результат с правилами русского языка (11-14 дней, 1 день, 2-3-4 дня, 5-9-0 дней)
-                document.querySelector('.count-days .value').innerHTML = days;
-                if (days%100 == 11 || days%100 == 12 || days%100 == 13 || days%100 == 14) {
-                        document.querySelector('.count-days .title').innerHTML = 'дней';
-                } else if (days%10 == 1) {
-                        document.querySelector('.count-days .title').innerHTML = 'день';
-                } else if (days%10 == 0 || days%10 >= 5) {
-                        document.querySelector('.count-days .title').innerHTML = 'дней';
-                } else if (days%10 == 2 || days%10 == 3 || days%10 == 4) {
-                        document.querySelector('.count-days .title').innerHTML = 'дня';
-                }
+    if (this.showTitles) {
+      let clockfaceTitle = document.createElement('DIV');
+      clockfaceTitle.classList.add('clockface__title');
+      clockfaceItem.append(clockfaceTitle);
+    }
 
-                document.querySelector('.count-hours .value').innerHTML = hours;
-                if (hours >= 11 && hours <= 14) {
-                        document.querySelector('.count-hours .title').innerHTML = 'часов';
-                } else if (hours%10 == 1) {
-                        document.querySelector('.count-hours .title').innerHTML = 'час';
-                } else if (hours%10 == 0 || hours%10 >= 5) {
-                        document.querySelector('.count-hours .title').innerHTML = 'часов';
-                } else if (hours%10 == 2 || hours%10 == 3 || hours%10 == 4) {
-                        document.querySelector('.count-hours .title').innerHTML = 'часа';
-                }
+    let clockfaceDay = clockfaceItem.cloneNode(true);
+    clockfaceDay.classList.add('clockface-item_days');
+    let clockfaceHour = clockfaceItem.cloneNode(true);
+    clockfaceHour.classList.add('clockface-item_hours');
+    let clockfaceMin = clockfaceItem.cloneNode(true);
+    clockfaceMin.classList.add('clockface-item_mins');
+    let clockfaceSec = clockfaceItem.cloneNode(true);
+    clockfaceSec.classList.add('clockface-item_seconds');
 
-                document.querySelector('.count-mins .value').innerHTML = mins;
-                if (mins >= 11 && mins <= 14) {
-                        document.querySelector('.count-mins .title').innerHTML = 'минут';
-                } else if (mins%10 == 1) {
-                        document.querySelector('.count-mins .title').innerHTML = 'минута';
-                } else if (mins%10 == 0 || mins%10 >= 5) {
-                        document.querySelector('.count-mins .title').innerHTML = 'минут';
-                } else if (mins%10 == 2 || mins%10 == 3 || mins%10 == 4) {
-                        document.querySelector('.count-mins .title').innerHTML = 'минуты';
-                }
+    clockfaceItem.remove(); //no need anymore
 
-                document.querySelector('.count-seconds .value').innerHTML = secs;
-                if (secs >= 11 && secs <= 14) {
-                        document.querySelector('.count-seconds .title').innerHTML = 'секунд';
-                } else if (secs%10 == 1) {
-                        document.querySelector('.count-seconds .title').innerHTML = 'секунда';
-                } else if (secs%10 == 0 || secs%10 >= 5) {
-                        document.querySelector('.count-seconds .title').innerHTML = 'секунд';
-                } else if (secs%10 == 2 || secs%10 == 3 || secs%10 == 4) {
-                        document.querySelector('.count-seconds .title').innerHTML = 'секунды';
-                }
+    clockface.append(
+      clockfaceDay,
+      clockfaceSeparator.cloneNode(true),
+      clockfaceHour,
+      clockfaceSeparator.cloneNode(true),
+      clockfaceMin,
+      clockfaceSeparator.cloneNode(true),
+      clockfaceSec
+    );
 
-                setTimeout('CountDown(dateFuture)', 1000); //запускаем снова через 1 секунду
-        }
+    clockfaceSeparator.remove(); //no need anymore
+
+    this.elem.append(clockface);
+
+    // save some DOM elems to update it later...
+    this.clockface.dayValue = clockfaceDay.querySelector('.clockface__value');
+    this.clockface.hourValue = clockfaceHour.querySelector('.clockface__value');
+    this.clockface.minValue = clockfaceMin.querySelector('.clockface__value');
+    this.clockface.secValue = clockfaceSec.querySelector('.clockface__value');
+    if (this.showTitles) {
+      this.clockface.dayTitle = clockfaceDay.querySelector('.clockface__title');
+      this.clockface.hourTitle = clockfaceHour.querySelector('.clockface__title');
+      this.clockface.minTitle = clockfaceMin.querySelector('.clockface__title');
+      this.clockface.secTitle = clockfaceSec.querySelector('.clockface__title');
+    }
+  }
+
+  this.countDown = (dateFuture) => {
+    //console.log('this.countDown');
+
+    let dateNow = new Date();
+    this.time.difference = dateFuture.getTime() - dateNow.getTime();
+    delete dateNow;
+
+    //what if dateFuture < dateNow? So show only zeros...
+    if(this.time.difference <= 0) {
+      this.clockface.dayValue.textContent = '0';
+      this.clockface.hourValue.textContent = '0';
+      this.clockface.minValue.textContent = '0';
+      this.clockface.secValue.textContent = '0';
+      if (this.showTitles) {
+        this.clockface.minTitle.textContent = 'минут';
+        this.clockface.dayTitle.textContent = 'дней';
+        this.clockface.hourTitle.textContent = 'часов';
+        this.clockface.secTitle.textContent = 'секунд';
+      }
+      return false;
+    }
+
+    // All right! dateFuture > dateNow. So we have to count...
+
+    //round to seconds
+    this.time.difference = Math.floor(this.time.difference / 1000);
+
+    //get days (1 day = 86400 secs)
+    this.time.days = Math.floor(this.time.difference / 86400);
+    this.time.difference = this.time.difference % 86400; // save remains
+
+    this.time.hours = Math.floor(this.time.difference / 3600);
+    this.time.difference = this.time.difference % 3600;
+
+    this.time.mins = Math.floor(this.time.difference / 60);
+    this.time.difference = this.time.difference % 60;
+
+    this.time.secs = Math.floor(this.time.difference);
+
+    this.upDateDOM();
+
+    //call again after 1 sec
+    setTimeout(this.countDown, 1000, dateFuture);
+  }
+
+  this.upDateDOM = () => {
+    //Выводим результат с правилами русского языка (11-14 дней, 1 день, 2-3-4 дня, 5-9-0 дней)
+
+    this.clockface.dayValue.textContent = this.time.days;
+    if (this.showTitles) {
+      if (this.time.days%100 == 11 || this.time.days%100 == 12 || this.time.days%100 == 13 || this.time.days%100 == 14) {
+        this.clockface.dayTitle.textContent = 'дней';
+      } else if (this.time.days%10 == 1) {
+        this.clockface.dayTitle.textContent = 'день';
+      } else if (this.time.days%10 == 0 || this.time.days%10 >= 5) {
+        this.clockface.dayTitle.textContent = 'дней';
+      } else if (this.time.days%10 == 2 || this.time.days%10 == 3 || this.time.days%10 == 4) {
+        this.clockface.dayTitle.textContent = 'дня';
+      }
+    }
+
+    this.clockface.hourValue.textContent = this.time.hours;
+    if (this.showTitles) {
+      if (this.time.hours >= 11 && this.time.hours <= 14) {
+        this.clockface.hourTitle.textContent = 'часов';
+      } else if (this.time.hours%10 == 1) {
+        this.clockface.hourTitle.textContent = 'час';
+      } else if (this.time.hours%10 == 0 || this.time.hours%10 >= 5) {
+        this.clockface.hourTitle.textContent = 'часов';
+      } else if (this.time.hours%10 == 2 || this.time.hours%10 == 3 || this.time.hours%10 == 4) {
+        this.clockface.hourTitle.textContent = 'часа';
+      }
+    }
+
+    this.clockface.minValue.textContent = this.time.mins;
+    if (this.showTitles) {
+      if (this.time.mins >= 11 && this.time.mins <= 14) {
+        this.clockface.minTitle.textContent = 'минут';
+      } else if (this.time.mins%10 == 1) {
+        this.clockface.minTitle.textContent = 'минута';
+      } else if (this.time.mins%10 == 0 || this.time.mins%10 >= 5) {
+        this.clockface.minTitle.textContent = 'минут';
+      } else if (this.time.mins%10 == 2 || this.time.mins%10 == 3 || this.time.mins%10 == 4) {
+        this.clockface.minTitle.textContent = 'минуты';
+      }
+    }
+
+    this.clockface.secValue.textContent = this.time.secs;
+    if (this.showTitles) {
+      if (this.time.secs >= 11 && this.time.secs <= 14) {
+        this.clockface.secTitle.textContent = 'секунд';
+      } else if (this.time.secs%10 == 1) {
+        this.clockface.secTitle.textContent = 'секунда';
+      } else if (this.time.secs%10 == 0 || this.time.secs%10 >= 5) {
+        this.clockface.secTitle.textContent = 'секунд';
+      } else if (this.time.secs%10 == 2 || this.time.secs%10 == 3 || this.time.secs%10 == 4) {
+        this.clockface.secTitle.textContent = 'секунды';
+      }
+    }
+  }
+
+  this.start(); //start timer
 }
