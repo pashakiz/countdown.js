@@ -1,14 +1,14 @@
-/* -------------------------------------------------------------------------------------------------------------- */
-/* countdown.js
-https://github.com/pashakiz/countdown.js
+/*
+* Autor: Pavel Kizernis (pashakiz@gmail.com)
+* https://github.com/pashakiz/countdown.js
 */
-/* -------------------------------------------------------------------------------------------------------------- */
+
 .block {
 	text-align: center;
 	padding-top: 40px;
 	padding-bottom: 40px;
 }
-.countdown {
+.countdown-js {
 	text-align: center;
 	margin: 20px 0;
 }
@@ -34,4 +34,16 @@ https://github.com/pashakiz/countdown.js
 	line-height: 1;
 	color: #777;
 	margin-top: 11px;
+}
+.footer-link {
+  color: #8b949e;
+}
+.footer-link:hover {
+  color: #222222;
+}
+.octicon {
+  fill: currentColor;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
 }
