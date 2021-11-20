@@ -12,6 +12,7 @@ function CountDown(elem) {
   this.elem = elem;
 
   this.showTitles = elem.dataset.showTitles === 'true' ? true : false;
+  this.leftZero = elem.dataset.hideLeftZero === 'true' ? 0 : '0';
 
   this.clockface = {
     dayValue: null,
@@ -123,10 +124,10 @@ function CountDown(elem) {
 
     //what if dateFuture < dateNow? So show only zeros...
     if(this.time.difference <= 0) {
-      this.clockface.dayValue.textContent = '0';
-      this.clockface.hourValue.textContent = '0';
-      this.clockface.minValue.textContent = '0';
-      this.clockface.secValue.textContent = '0';
+      this.clockface.dayValue.textContent = this.leftZero + 0;
+      this.clockface.hourValue.textContent = this.leftZero + 0;
+      this.clockface.minValue.textContent = this.leftZero + 0;
+      this.clockface.secValue.textContent = this.leftZero + 0;
       if (this.showTitles) {
         this.clockface.minTitle.textContent = 'минут';
         this.clockface.dayTitle.textContent = 'дней';
@@ -162,7 +163,7 @@ function CountDown(elem) {
   this.upDateDOM = () => {
     //Выводим результат с правилами русского языка (11-14 дней, 1 день, 2-3-4 дня, 5-9-0 дней)
 
-    this.clockface.dayValue.textContent = this.time.days;
+    this.clockface.dayValue.textContent = this.time.days < 10 ? this.leftZero + this.time.days : this.time.days;
     if (this.showTitles) {
       if (this.time.days%100 == 11 || this.time.days%100 == 12 || this.time.days%100 == 13 || this.time.days%100 == 14) {
         this.clockface.dayTitle.textContent = 'дней';
@@ -175,7 +176,7 @@ function CountDown(elem) {
       }
     }
 
-    this.clockface.hourValue.textContent = this.time.hours;
+    this.clockface.hourValue.textContent = this.time.hours < 10 ? this.leftZero + this.time.hours : this.time.hours;
     if (this.showTitles) {
       if (this.time.hours >= 11 && this.time.hours <= 14) {
         this.clockface.hourTitle.textContent = 'часов';
@@ -188,7 +189,7 @@ function CountDown(elem) {
       }
     }
 
-    this.clockface.minValue.textContent = this.time.mins;
+    this.clockface.minValue.textContent = this.time.mins < 10 ? this.leftZero + this.time.mins : this.time.mins;
     if (this.showTitles) {
       if (this.time.mins >= 11 && this.time.mins <= 14) {
         this.clockface.minTitle.textContent = 'минут';
@@ -201,7 +202,7 @@ function CountDown(elem) {
       }
     }
 
-    this.clockface.secValue.textContent = this.time.secs;
+    this.clockface.secValue.textContent = this.time.secs < 10 ? this.leftZero + this.time.secs : this.time.secs;
     if (this.showTitles) {
       if (this.time.secs >= 11 && this.time.secs <= 14) {
         this.clockface.secTitle.textContent = 'секунд';
