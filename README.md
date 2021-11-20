@@ -1,6 +1,6 @@
 # countdown.js
 
-<a href="https://pashakiz.github.io/countdown.js/" title="demo">demo1</a> <a href="http://lubus.ru/d/countdown/" title="demo">demo2</a> 
+<a href="https://pashakiz.github.io/countdown.js/" title="demo">demo</a>
 
 ## Documentation
 
@@ -8,10 +8,6 @@ Add HTML-code (put your date for countdown in `data-countdown-date` attribute). 
 
 ```
 <div class="countdown-js" data-countdown-date="2021-8-4-10-0-0"></div>
-```
-Add attribute `data-show-titles="true"` for output titles likes *«days»*, *«hours»*, *«mins»*, *«secs»*:
-```
-<div class="countdown-js" data-countdown-date="2021-8-4-10-0-0" data-show-titles="true"></div>
 ```
 
 Add countdown.css
@@ -59,3 +55,15 @@ document.addEventListener('DOMContentLoaded', initCountDown);
 ```
 
 Enjoy it!
+
+
+## Options:
+Add attribute `data-show-titles="true"` for output titles likes *«days»*, *«hours»*, *«mins»*, *«secs»*:
+```
+<div class="countdown-js" data-countdown-date="2021-8-4-10-0-0" data-show-titles="true"></div>
+```
+
+Add attribute `data-hide-left-zero="true"` for hide left zero of days/hours/mins/secs (for example: `1` instead `01`):
+```
+<div class="countdown-js" data-countdown-date="2021-8-4-10-0-0" data-hide-left-zero="true"></div>
+```
