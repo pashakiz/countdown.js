@@ -1,0 +1,20 @@
+body {
+  margin-bottom: 50px;
+}
+.block {
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+.footer-link {
+  color: #8b949e;
+}
+.footer-link:hover {
+  color: #222222;
+}
+.octicon {
+  fill: currentColor;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+}
