@@ -6,18 +6,18 @@
 
 Add HTML-code (put your date for countdown in `data-countdown-date` attribute). Class `countdown-js` is required. If you want more than one timer - just copy/paste this HTML-code with another date.
 
-```
+```HTML
 <div class="countdown-js" data-countdown-date="2021-8-4-10-0-0"></div>
 ```
 
 Add countdown.css
 
-```
-<link rel="stylesheet" href="css/countdown.css" />
+```HTML
+<link rel="stylesheet" href="css/countdown.css">
 ```
 
 You can customize this css-code. The full HTML-structure will be generated:
-```
+```HTML
 <div class="countdown-js" data-countdown-date="2016-8-4-10-0-0">
   <div class="clockface">
     <div class="clockface-item clockface-item_days">
@@ -45,12 +45,12 @@ You can customize this css-code. The full HTML-structure will be generated:
 
 Add countdown.js:
 
-```
+```HTML
 <script src="js/countdown.js"></script>
 ```
 
 When DOM is ready (or load) - init countdown!
-```
+```JS
 document.addEventListener('DOMContentLoaded', initCountDown);
 ```
 
@@ -59,11 +59,11 @@ Enjoy it!
 
 ## Options:
 Add attribute `data-show-titles="true"` for output titles likes *«days»*, *«hours»*, *«mins»*, *«secs»*:
-```
+```HTML
 <div class="countdown-js" data-countdown-date="2021-8-4-10-0-0" data-show-titles="true"></div>
 ```
 
 Add attribute `data-hide-left-zero="true"` for hide left zero of days/hours/mins/secs (for example: `1` instead `01`):
-```
+```HTML
 <div class="countdown-js" data-countdown-date="2021-8-4-10-0-0" data-hide-left-zero="true"></div>
 ```
