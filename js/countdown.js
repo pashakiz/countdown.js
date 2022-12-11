@@ -43,7 +43,7 @@ function CountDown(elem) {
       let difftime = (timeFuture[0] * 60 * 60 * 1000) + (timeFuture[1] * 60 * 1000) + (timeFuture[2] * 1000);
       let dateNow = new Date();
       this.dateFuture = new Date(difftime + dateNow.getTime());
-      delete dateNow;
+      //delete dateNow;
       this.buildClockFace();
       this.countDown(this.dateFuture);
       return false
@@ -135,7 +135,7 @@ function CountDown(elem) {
 
     let dateNow = new Date();
     this.time.difference = dateFuture.getTime() - dateNow.getTime();
-    delete dateNow;
+    //delete dateNow;
 
     //what if dateFuture < dateNow? So show only zeros...
     if(this.time.difference <= 0) {
