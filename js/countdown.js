@@ -35,11 +35,26 @@ function CountDown(elem) {
 
   this.start = () => {
     console.log('start timer!');
+
+    //Well if we have countdownTime ignore countdownDate even if it is defined
+    if (!!this.elem.dataset.countdownTime) {
+      let timeStr = this.elem.dataset.countdownTime;
+      let timeFuture = timeStr.split('-');
+      let difftime = (timeFuture[0] * 60 * 60 * 1000) + (timeFuture[1] * 60 * 1000) + (timeFuture[2] * 1000);
+      let dateNow = new Date();
+      this.dateFuture = new Date(difftime + dateNow.getTime());
+      delete dateNow;
+      this.buildClockFace();
+      this.countDown(this.dateFuture);
+      return false
+    }
+
+    //if we haven't countdownTime use countdownDate
     let dateStr = this.elem.dataset.countdownDate;
     let dateFuture = dateStr.split('-');
     --dateFuture[1]; //months start from 0 in JS
 
-    //Create a dateFuture object of type Date with the date until which the counter will tick
+    //Create a dateFuture object of Date type with the date until which the counter will tick
     this.dateFuture = new Date(
       dateFuture[0],
       dateFuture[1],
